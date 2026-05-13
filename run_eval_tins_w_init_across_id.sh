@@ -5,11 +5,10 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT_PATH="${REPO_ROOT}/eval_tins_w_init_across_id.py"
 
-# For ImageNet only, the script still reads <ROOT_DIR>/ImageNet/val.
-# Food-101 / ImageNet-Sketch / ImageNet-R / ImageNet-V2 use the fixed paths
-# already written inside eval_tins_w_init_across_id.py.
 ROOT_DIR="${ROOT_DIR:-datasets}"
 OPENOOD_ROOT="${OPENOOD_ROOT:-/disk1/yangyifeng/icml_2024/OpenOOD}"
+FOOD101_ROOT="${FOOD101_ROOT:-data}"
+OPENOOD_IMAGE_ROOT="${OPENOOD_IMAGE_ROOT:-${OPENOOD_ROOT}/data/images_largescale}"
 CACHE_DIR="${CACHE_DIR:-${REPO_ROOT}/cache/tins_across_id}"
 GPU="${GPU:-0}"
 CKPT="${CKPT:-ViT-B/16}"
@@ -25,27 +24,71 @@ GROUP_NUM="${GROUP_NUM:-5}"
 OOD_NUMBER="${OOD_NUMBER:-2000}"
 EXTRA_TEXT_LENGTH="${EXTRA_TEXT_LENGTH:-2000}"
 
-ID_DATASETS=(
-  "Food-101"
-  "ImageNet-Sketch"
-  "ImageNet-R"
-  "ImageNet-V2"
-)
+DEFAULT_ID_DATASETS=("Food-101" "ImageNet-Sketch" "ImageNet-R" "ImageNet-V2")
+VALID_ID_DATASETS=("ImageNet" "${DEFAULT_ID_DATASETS[@]}")
 
-if [[ $# -gt 0 ]]; then
+usage() {
+  cat <<'EOF'
+Usage:
+  bash run_eval_tins_w_init_across_id.sh [ID_DATASET ...]
+
+ID datasets:
+  ImageNet Food-101 ImageNet-Sketch ImageNet-R ImageNet-V2
+
+Environment overrides:
+  ROOT_DIR              ImageNet root parent; expects ${ROOT_DIR}/ImageNet/val
+  OPENOOD_ROOT          OpenOOD repository root
+  FOOD101_ROOT          torchvision Food101 root; expects ${FOOD101_ROOT}/food-101
+  OPENOOD_IMAGE_ROOT    parent of imagenet-sketch/images, imagenet_r, imagenet_v2
+  CACHE_DIR             cache directory
+  GPU                   GPU index passed to the Python script
+  CKPT                  CLIP backbone: ViT-B/32, ViT-B/16, or ViT-L/14
+EOF
+}
+
+contains_dataset() {
+  local candidate="$1"
+  local dataset
+  for dataset in "${VALID_ID_DATASETS[@]}"; do
+    [[ "${candidate}" == "${dataset}" ]] && return 0
+  done
+  return 1
+}
+
+safe_name() {
+  echo "$1" | tr '[:upper:]' '[:lower:]' | tr ' /-' '___'
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+ID_DATASETS=("${DEFAULT_ID_DATASETS[@]}")
+if [[ "$#" -gt 0 ]]; then
   ID_DATASETS=("$@")
 fi
 
 cd "${REPO_ROOT}"
 
 for in_dataset in "${ID_DATASETS[@]}"; do
-  safe_name="$(echo "${in_dataset}" | tr '[:upper:]' '[:lower:]' | tr ' -' '__')"
-  exp_name="across_id_${safe_name}_inv${INVERSION_STEPS}_thr${OOD_THRESHOLD}_lam${INVERSION_REG_LAMBDA}"
+  if ! contains_dataset "${in_dataset}"; then
+    echo "Unsupported ID dataset: ${in_dataset}" >&2
+    usage >&2
+    exit 1
+  fi
+
+  dataset_name="$(safe_name "${in_dataset}")"
+  exp_name="across_id_${dataset_name}_inv${INVERSION_STEPS}_thr${OOD_THRESHOLD}_lam${INVERSION_REG_LAMBDA}"
 
   echo "============================================================"
   echo "Running tins across-ID evaluation"
   echo "  ID dataset: ${in_dataset}"
   echo "  Experiment: ${exp_name}"
+  echo "  Root dir: ${ROOT_DIR}"
+  echo "  Food-101 root: ${FOOD101_ROOT}"
+  echo "  OpenOOD image root: ${OPENOOD_IMAGE_ROOT}"
+  echo "  Cache dir: ${CACHE_DIR}"
   echo "============================================================"
 
   python "${SCRIPT_PATH}" \
@@ -53,6 +96,8 @@ for in_dataset in "${ID_DATASETS[@]}"; do
     --in_dataset "${in_dataset}" \
     --root-dir "${ROOT_DIR}" \
     --openood-root "${OPENOOD_ROOT}" \
+    --food101-root "${FOOD101_ROOT}" \
+    --openood-image-root "${OPENOOD_IMAGE_ROOT}" \
     --cache-dir "${CACHE_DIR}" \
     --gpu "${GPU}" \
     --CLIP_ckpt "${CKPT}" \

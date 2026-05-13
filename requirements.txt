@@ -1,0 +1,15 @@
+# Runtime dependencies aligned with the existing MCM conda environment.
+torch==2.10.0
+torchvision==0.25.0
+numpy==1.26.4
+pandas==2.2.3
+pillow==12.1.1
+tqdm==4.67.3
+scipy==1.17.1
+scikit-learn==1.5.1
+transformers==4.53.1
+ftfy==6.3.1
+regex==2026.2.28
+gdown==5.2.0
+matplotlib==3.10.8
+seaborn==0.13.2

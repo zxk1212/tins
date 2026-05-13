@@ -165,6 +165,18 @@ def process_args():
     )
     parser.add_argument("--root-dir", default="datasets", type=str, help="Dataset root dir.")
     parser.add_argument(
+        "--food101-root",
+        default=DEFAULT_FOOD101_ROOT,
+        type=str,
+        help="Root directory passed to torchvision.datasets.Food101. The dataset is expected under <food101-root>/food-101.",
+    )
+    parser.add_argument(
+        "--openood-image-root",
+        default=DEFAULT_OPENOOD_IMAGE_ROOT,
+        type=str,
+        help="Directory containing ImageNet-Sketch, ImageNet-R, and ImageNet-V2 image folders.",
+    )
+    parser.add_argument(
         "--eval-protocol",
         default="four_ood",
         type=str,
@@ -426,18 +438,18 @@ def build_id_test_dataset(args, preprocess):
         return datasets.ImageFolder(str(dataset_root), transform=preprocess)
 
     if args.in_dataset == "Food-101":
-        return Food101(DEFAULT_FOOD101_ROOT, split="test", download=False, transform=preprocess)
+        return Food101(args.food101_root, split="test", download=False, transform=preprocess)
 
     if args.in_dataset == "ImageNet-Sketch":
-        dataset_root = Path(DEFAULT_OPENOOD_IMAGE_ROOT) / "imagenet-sketch" / "images"
+        dataset_root = Path(args.openood_image_root) / "imagenet-sketch" / "images"
         return datasets.ImageFolder(str(dataset_root), transform=preprocess)
 
     if args.in_dataset == "ImageNet-R":
-        dataset_root = Path(DEFAULT_OPENOOD_IMAGE_ROOT) / "imagenet_r"
+        dataset_root = Path(args.openood_image_root) / "imagenet_r"
         return datasets.ImageFolder(str(dataset_root), transform=preprocess)
 
     if args.in_dataset == "ImageNet-V2":
-        dataset_root = Path(DEFAULT_OPENOOD_IMAGE_ROOT) / "imagenet_v2"
+        dataset_root = Path(args.openood_image_root) / "imagenet_v2"
         return NumericImageFolderDataset(str(dataset_root), transform=preprocess)
 
     raise ValueError(f"Unsupported ID dataset: {args.in_dataset}")
