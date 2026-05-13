@@ -42,8 +42,7 @@ data/CIFAR*
 *.pth
 *.npz
 *.jpg
-.clip-vit-base-patch16/
-.cache/
-.specstory/
-clip-vit-base-patch16/
+cache/
+.specstory
 clip-vit-base-patch16
+.vscode
