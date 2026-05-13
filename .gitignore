@@ -45,3 +45,5 @@ data/CIFAR*
 .clip-vit-base-patch16/
 .cache/
 .specstory/
+clip-vit-base-patch16/
+clip-vit-base-patch16
