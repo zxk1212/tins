@@ -1,0 +1,237 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Across-ID Food-101",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init_across_id.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "0"
+      },
+      "args": [
+        "--eval-protocol", "four_ood",
+        "--in_dataset", "Food-101",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--openood-root", "/disk1/yangyifeng/icml_2024/OpenOOD",
+        "--cache-dir", "${workspaceFolder}/cache/interneg_across_id",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--batch-size", "256",
+        "--text-batch-size", "1000",
+        "--prototype-batch-size", "256",
+        "--seed", "0",
+        "--name", "across_id_food_101_inv30_thr0.3_lam0.3_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.3",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    },
+    {
+      "name": "Debug Across-ID ImageNet-Sketch",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init_across_id.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "0"
+      },
+      "args": [
+        "--eval-protocol", "four_ood",
+        "--in_dataset", "ImageNet-Sketch",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--openood-root", "/disk1/yangyifeng/icml_2024/OpenOOD",
+        "--cache-dir", "${workspaceFolder}/cache/interneg_across_id",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--batch-size", "256",
+        "--text-batch-size", "1000",
+        "--prototype-batch-size", "256",
+        "--seed", "0",
+        "--name", "across_id_imagenet_sketch_inv30_thr0.3_lam0.3_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.3",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    },
+    {
+      "name": "Debug Across-ID ImageNet-R",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init_across_id.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "0"
+      },
+      "args": [
+        "--eval-protocol", "four_ood",
+        "--in_dataset", "ImageNet-R",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--openood-root", "/disk1/yangyifeng/icml_2024/OpenOOD",
+        "--cache-dir", "${workspaceFolder}/cache/interneg_across_id",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--batch-size", "256",
+        "--text-batch-size", "1000",
+        "--prototype-batch-size", "256",
+        "--seed", "0",
+        "--name", "across_id_imagenet_r_inv30_thr0.3_lam0.3_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.3",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    },
+    {
+      "name": "Debug Across-ID ImageNet-V2",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init_across_id.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "0"
+      },
+      "args": [
+        "--eval-protocol", "four_ood",
+        "--in_dataset", "ImageNet-V2",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--openood-root", "/disk1/yangyifeng/icml_2024/OpenOOD",
+        "--cache-dir", "${workspaceFolder}/cache/interneg_across_id",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--batch-size", "256",
+        "--text-batch-size", "1000",
+        "--prototype-batch-size", "256",
+        "--seed", "0",
+        "--name", "across_id_imagenet_v2_inv30_thr0.3_lam0.3_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.3",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    },
+    
+    {
+      "name": "Debug InterNeg ImageNet four_ood",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "0"
+      },
+      "args": [
+        "--eval-protocol", "four_ood",
+        "--in_dataset", "ImageNet",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--name", "eval_interneg_w_init_four_ood_fjb_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.3",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    },
+    {
+      "name": "Debug InterNeg OpenOOD CIFAR100",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init_cifar10_100.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "7"
+      },
+      "args": [
+        "--eval-protocol", "openood_cifar100",
+        "--openood-root", "/disk1/yangyifeng/icml_2024/OpenOOD",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--train-shot-per-class", "16",
+        "--name", "interneg_openood_cifar100_16shot_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.5",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "70000",
+        "--bank-buffer-size", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    },
+    {
+      "name": "Debug InterNeg OpenOOD CIFAR10",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/eval_tins_w_init_cifar10_100.py",
+      "python": "/usr/local/anaconda3/bin/python",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "justMyCode": false,
+      "env": {
+        "CUDA_VISIBLE_DEVICES": "6"
+      },
+      "args": [
+        "--eval-protocol", "openood_cifar10",
+        "--openood-root", "/disk1/yangyifeng/icml_2024/OpenOOD",
+        "--root-dir", "${workspaceFolder}/datasets",
+        "--gpu", "0",
+        "--CLIP_ckpt", "ViT-B/16",
+        "--train-shot-per-class", "16",
+        "--name", "interneg_openood_cifar10_16shot_debug",
+        "--inversion-steps", "30",
+        "--inversion-reg-lambda", "0.5",
+        "--ood-threshold", "0.3",
+        "--group-num", "5",
+        "--ood-number", "70000",
+        "--bank-buffer-size", "2000",
+        "--extra-text-length", "2000",
+        "--no-cache",
+        "--no-image-feature-cache"
+      ]
+    }
+  ]
+}
